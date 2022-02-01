@@ -8,9 +8,8 @@ In DaaS architecture, data in centralized store are typically replicated from so
 
 iModels are first class citizens and the majority of the functionalities and activities are around iModels. 
 
-Diagram:
 
-	@todo: insert imodel diagram
+	![image](https://user-images.githubusercontent.com/1950232/151934068-2527c288-69b2-494b-b58c-ebea631d6326.png)
 
 
 ## Incremental Database
