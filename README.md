@@ -1,5 +1,9 @@
 # Tapdata Incremental DaaS 
 
+## Change Log
+
+
+
 ## What is iDaaS
 
 iDaaS, or Incremental Data as a Service, is an open source data platform that integrates enterprise data silos in real time and provide a complete and unified data layer to serve the operational applications or analytical systems. 
@@ -154,9 +158,29 @@ China Eastern Airlines
 
 [iDaaS Components](docs/components.md)
 
-[Open CDC Standard](docs/open-cdc.md)
+Incremental Engine 
+
+- Incremental Engine Architecture
+- [Open CDC Standard](docs/open-cdc.md)
+- [Third Party CDC Integration](docs/third-party-cdc.md)
+- Incremental Verification: mechanisms and caveats
+- Shared Log Mining
+
+Flow Engine
+
+- Flow Engine Architecture 
+- Stream Join 
+- Streaming Aggregation 
+- Using IMDG for Caching
+
+Consistency & Correctness Control
+
+- Provide causal consistency 
+- 
 
 [Metadata Management](docs/metadata.md)
+
+[Observability](docs/observability.md)
 
 Reverse ETL
 
@@ -165,6 +189,16 @@ Reverse ETL
 - [Open API References](docs/open-api.md)
 - Python SDK
 
+### iDaaS Shell Reference
+
+- Overview
+- Explore / Search data
+- Working with iModels
+- Working with Pipelines
+- Working with Metadata
+- Working with Data APIs
+- Working with Data Sources & Targets
+ 
 ###  Plugin Development Kit - Extending iDaaS
 
 - iDaaS Pluggable Architecture 
