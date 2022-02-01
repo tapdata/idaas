@@ -13,6 +13,32 @@ In short, iDaaS is aimed to serve operational/transactional workload while data 
 The name "Incremental" is inspired Delta Lake. However, unlike the data lake or data warehouses, which typically loads the data  in batch mode, data in iDaaS is incrementally inserted/updated/deleted on a row by row level, mirroring the changes in source systems as those changes occur.  The freshness of data, and the correctness of the data guaranteed by the industry first **Incremental Engine**, enables users to build mission critical operational applications, including web, mobile and backend applications. 
 
 
+## How It Works
+
+iDaaS can be used in two main scenarios: 
+- As a centralized data platform, similar to a data lake
+- As a real time data integration platform, similar to a modern ELT+L tool.
+
+Typical workflow when used  as a **Data Integration Platform**:
+
+- Configure source connection, enable CDC in source database
+- Configure target connection
+- Create pipelines to replicate data from source to target
+- Add stateless or stateful transformation processors in the pipeline when needed
+- Run the data pipeline
+
+Typical workflow when used  as a **Enterprise Data Platform**:
+
+- Confirm data requirements from business users
+- Plan & Design the data architecture in DaaS Store, including Data Models and Data API 
+- Configure source connection, enable CDC in source database
+- Create models in DaaS(iModel), configure model's backing source table, and activate the model
+- Create & Publish APIs backed by the iModel
+- Start consuming data from the API
+
+
+
+
 ## Use Cases 
 
 When and Where iDaaS can be used?
@@ -31,13 +57,10 @@ When and Where iDaaS can be used?
 
 And many more.
 
-## How It Works
 
-
+## Core Capabilities
 	
-## Key Features 
-
-#### Incrementally Updated
+#### Incrementally Updated Data Platform
 
 All changes, including insert/update/delete as well as DDL changes, are captured and replicated to the iDaaS to ensure the data platform is incrementally updated and sync-ed with the source systems.  
 
@@ -49,76 +72,69 @@ Count, row level, field level, incremental verification methods
 
 Changes in source systems typically take less than one second to be reflected in the iDaaS platform.  The  replication delay can be accurately measured to allow user be aware 
 
-#### Causal Consistency Guarantee(*)
+#### Consistency Guarantee(*)
 
 Provide "Read your writes" as well as "Causal Consistency" guarantees under circumstances where stronger consistency is required to ensure user experience. 
 
-#### Comprehensive Data Source Support
-
-Support most common databases and messaging systems including but not limited to Oracle, MySQL, SQLServer, PostgreSQL,  MongoDB, DB2, Sybase, Kafka, MQ etc. 
-
-#### Pluggable architecture allows easy extension
-
-All major components, including Source, Processor and Target, are designed with extensibility in mind. One can easily follow the tutorial or documentation to create custom source, target or processors. 
+	
+## More Key Features 
 
 #### Comprehensive Data Source Support
 
 Support most common databases and messaging systems including but not limited to Oracle, MySQL, SQLServer, PostgreSQL,  MongoDB, DB2, Sybase, Kafka, MQ etc. 
+
+#### Pluggable Architecture allows easy extension
+
+iDaaS is designed with extension in mind. All major components, including Source, Processor and Target, are designed with extensibility in mind. One can easily follow the tutorial or documentation to create custom source, target or processors. 
 
 #### Third Party CDC Integration
 
 Already setup OGG, Attunity, HVR, Canal ? No problem, you can connect your CDC tool to iDaaS to enjoy the flow engine and data api capability.
 
-#### Open API  
+#### Interactive Shell
 
-All functionalities can be accessed via Open API for easy integration. 
+Explore, search, create, manage data models, create and run data pipelines
+ 
+#### Open API  & Client SDK
+
+All functionalities can be accessed via Open API for easy integration.  
 
 #### Cloud Native
 
 Scalable architecture, docker compatible, can be easily deployed on-prem or on any of the major cloud providers.  
 
-## Architecutral Diagram
+## Who Are Using iDaaS
 
- iDaaS conssits of following major components:
+SANY Heavy Industry
+
+Chowsangsang
+
+First Auto
+
+ChangAn Auto
+
+China Eastern Airlines
+
+
  
- - Incremental Engine
- - Flow Engine
- - Data Store
- - Service Engine
-
- 
-![image](https://user-images.githubusercontent.com/1950232/151819404-c7045673-119d-496e-9326-0436e00c1a59.png)
-
-## Repository Structure
-
-- idaas: main repo
-- idaas-shell: Interactive shell for using all functionality of iDaaS
-- idaas-fe: flow engine
-- idaas-se: service engine
-- idaas-ie: incremental engine
-- idaas-web: Web GUI
-- idaas-crud: CRUD framework for all data sources
-- idaas-open-api: Open API 
-- idaas-pdk: Plugin development kit
-
 ## Documentation
 
-### [Setup & Installation ](docs/installation.md)
+### Installation
 
--  Install using Docker
--  Install from source
--  Install from Tapdata Cloud
+-  [Install using Docker ](docs/installation.md)
+- Install from source
+- Install from Tapdata Cloud
 
-### Tutorials 
-- iDaaS Tasks
+### Tutorials & How To
+- Working with iDaaS & iModel
 	- Create a simple iModel
 	- Publish a Data API 
 	- Create a complex iModel backed by more than one source
-- General Data Pipeline Tasks
+- Working with Data Pipelines
 	- [Heterogeneous Data Replication from MySQL to MongoDB](docs/tutorial-mysql-mongodb.md)
 
-### Learn the Fundamentals & Concepts
-[Fundamentals](docs/fundamentals.md)
+### Fundamentals & Concepts
+[Basic Concepts](docs/fundamentals.md)
 
 - iModel / IncrementalModel
 - iDatabase / IncrementalDatabase
@@ -127,27 +143,40 @@ Scalable architecture, docker compatible, can be easily deployed on-prem or on a
 - Pipeline
 - Connection
 - Table
-- CDC vs. ETL
 
-[Open CDC Standard](docs/open-cdc.md)
 
-[Components](docs/components.md)
-
-- Incremental Engine
-- Flow Engine
-- Service Engine
 
 [ Consistency Model](docs/consistency-model.md)
 
-###  Plugin Development Kit - Extend iDaaS
+### Technical Architecture
 
-### iDaaS Open API References & Client SDK
+[iDaaS Overview](docs/architecture-overview.md)
+
+[iDaaS Components](docs/components.md)
+
+[Open CDC Standard](docs/open-cdc.md)
+
+[Metadata Management](docs/metadata.md)
+
+Reverse ETL
+
+### iDaaS Open API References 
+
 - [Open API References](docs/open-api.md)
-- Client SDKs
+- Python SDK
 
-### Contribute 
-- How to contribute
-- Coding conventions & standards
+###  Plugin Development Kit - Extending iDaaS
+
+- iDaaS Pluggable Architecture 
+- PDK Introduction 
+- Tutorial: Create & Test a custom database  source 
+- Tutorial: Create & Test a custom data target
+- Tutorial: Create & Test a custom SaaS source
+- Tutorial: Create & Test a custom processor
+- Process for submitting plugin for certification review
+- Plugin SPI Reference
+
+
 
 ## References
 

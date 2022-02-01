@@ -1,6 +1,15 @@
 # Fundamentals
 
-@TJ
+Maintainer: @TJ
+
+- iModel / IncrementalModel
+- iDatabase / IncrementalDatabase
+- Data API / Model backed RESTful/GraphQL or Streaming API
+- Job
+- Pipeline
+- Connection
+- Table
+
 
 ## Incremental Model
 
