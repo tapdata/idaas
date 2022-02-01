@@ -45,6 +45,16 @@ How to Connect & Authenticate
 - Create Pipeline
 - Delete Pipeline
 
+## IncrementalModel
+
+iModel
+
+- List models
+- Get model detail
+- Create IncrementalModel
+- Update IncrementalModel
+- Delete IncrementalModel
+
 ## Database
 
 List Databases

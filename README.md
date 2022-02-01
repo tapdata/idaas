@@ -2,14 +2,13 @@
 
 ## What is iDaaS
 
-iDaaS, or Incremental Data as a Service, is an open source data platform that integrates enterprise data silos in real time and provide a complete and consistent data layer to serve the operational applications or analytical systems. 
+iDaaS, or Incremental Data as a Service, is an open source data platform that integrates enterprise data silos in real time and provide a complete and unified data layer to serve the operational applications or analytical systems. 
 
 
 #### Key Difference Compared to Data Lake/Data Warehouse
 In short, iDaaS is aimed to serve operational/transactional workload while data lake/data warehouses are exclusivelly designed to serve analytical workload. 
 
-Unlike the data lake or data warehouses, which typically loads the data via nightly or hourly batch, data in iDaaS is incrementally inserted/updated/deleted, mirroring the changes in source systems as those changes occur.  The freshness of data, and the correctness of the data guaranteed by the industry first Incremental Engine, enables users to build mission critical operational applications, including web, mobile and backend applications. 
-
+The name "Incremental" is inspired Delta Lake. However, unlike the data lake or data warehouses, which typically loads the data  in batch mode, data in iDaaS is incrementally inserted/updated/deleted on a row by row level, mirroring the changes in source systems as those changes occur.  The freshness of data, and the correctness of the data guaranteed by the industry first **Incremental Engine**, enables users to build mission critical operational applications, including web, mobile and backend applications. 
 
 
 ## Use Cases 
@@ -17,10 +16,6 @@ Unlike the data lake or data warehouses, which typically loads the data via nigh
 When and Where iDaaS can be used?
 
 - Real time heterogenous database replication
-	- MySQL to MySQL
-	- PostgreSQL to MongoDB	
-	- Oracle to MySQL	
-	- MySQL to Redis
 - Build a real time Data as a Service platform
 - Data processing / data serving store for BI/Reporting application
 - Mainframe offloading
@@ -34,43 +29,7 @@ When and Where iDaaS can be used?
 
 And many more.
 
-## Typical Workflow
-
-### Heterogeneous Database Replication: MySQL to MongoDB
-
-This is the fastest way to experience iDaaS platform with least setup & resources. 
-
-	# install tapdata agent / idaas agent
-	./tapdata-agent -i		# --interactive, enter into shell prompt
-	> login('https://cloud.tapdata.net',  'demo@tapdata.net', 'tapdata');
-	   OK
-	> createConnection( {
-				alias: "mysql_demo_db",
-				ip: 'demodb.tapdata.net',
-				port: 3306,
-				user: "demo",
-				password: demo123,
-				db: "insurance" 			
-			});
-  	  OK
-  	>  createConnection( {
-				alias: "mongodb_demo_db",
-				ip: 'demodb.tapdata.net,
-				port: 27000,
-				user: demo
-				password: demo123			
-				db: "insurance"				
-			}); 
-   	 OK
-	> createPipeline("demo_flow").readFrom(mysq_demo_db).
-	
-#### Real Time Dashboard
-@todo
-
-####  Microservices CRUD API
-@todo
-
-## Quick Start using iDaaS CLI + Cloud Console
+## How It Works
 
 
 	
@@ -84,9 +43,9 @@ All changes, including insert/update/delete as well as DDL changes, are captured
 
 Count, row level, field level, incremental verification methods
 
-#### Low Latency Replication
+#### Low Latency Replication, Mesurable 
 
-Changes in source systems typically take less than one second to be reflected in the iDaaS platform
+Changes in source systems typically take less than one second to be reflected in the iDaaS platform.  The  replication delay can be accurately measured to allow user be aware 
 
 #### Causal Consistency Guarantee(*)
 
@@ -104,6 +63,14 @@ All major components, including Source, Processor and Target, are designed with 
 
 Support most common databases and messaging systems including but not limited to Oracle, MySQL, SQLServer, PostgreSQL,  MongoDB, DB2, Sybase, Kafka, MQ etc. 
 
+#### Third Party CDC Integration
+
+Already setup OGG, Attunity, HVR, Canal ? No problem, you can connect your CDC tool to iDaaS to enjoy the flow engine and data api capability.
+
+#### Open API  
+
+All functionalities can be accessed via Open API for easy integration. 
+
 #### Cloud Native
 
 Scalable architecture, docker compatible, can be easily deployed on-prem or on any of the major cloud providers.  
@@ -120,34 +87,68 @@ Scalable architecture, docker compatible, can be easily deployed on-prem or on a
  
 ![image](https://user-images.githubusercontent.com/1950232/151819404-c7045673-119d-496e-9326-0436e00c1a59.png)
 
+## Repository Structure
 
+- idaas: main repo
+- idaas-shell: Interactive shell for using all functionality of iDaaS
+- idaas-fe: flow engine
+- idaas-se: service engine
+- idaas-ie: incremental engine
+- idaas-web: Web GUI
+- idaas-crud: CRUD framework for all data sources
+- idaas-open-api: Open API 
+- idaas-pdk: Plugin development kit
 
-## Documentation(Learn More)
+## Documentation
 
-### Installation 
-- Test
+### [Setup & Installation ](docs/installation.md)
 
+-  Install using Docker
+-  Install from source
+-  Install from Tapdata Cloud
 
-### Fundamentals & Concepts
-- DaaS & Components
+### Tutorials 
+- iDaaS Tasks
+	- Create a simple iModel
+	- Publish a Data API 
+	- Create a complex iModel backed by more than one source
+- General Data Pipeline Tasks
+	- [Heterogeneous Data Replication from MySQL to MongoDB](docs/tutorial-mysql-mongodb.md)
+
+### Learn the Fundamentals & Concepts
+[Fundamentals](docs/fundamentals.md)
+
+- iModel / IncrementalModel
+- iDatabase / IncrementalDatabase
+- Data API / Model backed RESTful/GraphQL or Streaming API
+- Job
+- Pipeline
+- Connection
+- Table
 - CDC vs. ETL
-- Open CDC Standard
+
+[Open CDC Standard](docs/open-cdc.md)
+
+[Components](docs/components.md)
+
 - Incremental Engine
 - Flow Engine
 - Service Engine
-- Causal Consistency
 
-### Tutorials & How To Guides
+[ Consistency Model](docs/consistency-model.md)
 
-###  Plugin Development Kit
+###  Plugin Development Kit - Extend iDaaS
 
-### iDaaS CLI
+### iDaaS Open API References & Client SDK
+- [Open API References](docs/open-api.md)
+- Client SDKs
 
-### Reference APIs
-
-
+### Contribute 
+- How to contribute
+- Coding conventions & standards
 
 ## References
 
+[Open Metadata] (https://docs.open-metadata.org/openmetadata/schemas/overview)
 
 
