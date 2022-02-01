@@ -22,9 +22,11 @@ When and Where iDaaS can be used?
 	- Oracle to MySQL	
 	- MySQL to Redis
 - Build a real time Data as a Service platform
+- Data processing / data serving store for BI/Reporting application
 - Mainframe offloading
 - Implement CQRS pattern
 - Build a read caching layer in front of RDBMS
+- Real Time / Operational Dashboard
 - Data prep(extract, transform, load) for Data Lake or Data Warehouse
 - Building materialized view
 - Customer/Product/Service 360
@@ -32,6 +34,46 @@ When and Where iDaaS can be used?
 
 And many more.
 
+## Typical Workflow
+
+### Heterogeneous Database Replication: MySQL to MongoDB
+
+This is the fastest way to experience iDaaS platform with least setup & resources. 
+
+	# install tapdata agent / idaas agent
+	./tapdata-agent -i		# --interactive, enter into shell prompt
+	> login('https://cloud.tapdata.net',  'demo@tapdata.net', 'tapdata');
+	   OK
+	> createConnection( {
+				alias: "mysql_demo_db",
+				ip: 'demodb.tapdata.net',
+				port: 3306,
+				user: "demo",
+				password: demo123,
+				db: "insurance" 			
+			});
+  	  OK
+  	>  createConnection( {
+				alias: "mongodb_demo_db",
+				ip: 'demodb.tapdata.net,
+				port: 27000,
+				user: demo
+				password: demo123			
+				db: "insurance"				
+			}); 
+   	 OK
+	> createPipeline("demo_flow").readFrom(mysq_demo_db).
+	
+#### Real Time Dashboard
+@todo
+
+####  Microservices CRUD API
+@todo
+
+## Quick Start using iDaaS CLI + Cloud Console
+
+
+	
 ## Key Features 
 
 #### Incrementally Updated
@@ -58,9 +100,9 @@ Support most common databases and messaging systems including but not limited to
 
 All major components, including Source, Processor and Target, are designed with extensibility in mind. One can easily follow the tutorial or documentation to create custom source, target or processors. 
 
-#### DDML Change Event Standard ####
+#### Comprehensive Data Source Support
 
-Open standard for DML / DDL change event across different database systems as well as SaaS systems(which typically provides API 
+Support most common databases and messaging systems including but not limited to Oracle, MySQL, SQLServer, PostgreSQL,  MongoDB, DB2, Sybase, Kafka, MQ etc. 
 
 #### Cloud Native
 
@@ -77,3 +119,35 @@ Scalable architecture, docker compatible, can be easily deployed on-prem or on a
 
  
 ![image](https://user-images.githubusercontent.com/1950232/151819404-c7045673-119d-496e-9326-0436e00c1a59.png)
+
+
+
+## Documentation(Learn More)
+
+### Installation 
+- Test
+
+
+### Fundamentals & Concepts
+- DaaS & Components
+- CDC vs. ETL
+- Open CDC Standard
+- Incremental Engine
+- Flow Engine
+- Service Engine
+- Causal Consistency
+
+### Tutorials & How To Guides
+
+###  Plugin Development Kit
+
+### iDaaS CLI
+
+### Reference APIs
+
+
+
+## References
+
+
+
