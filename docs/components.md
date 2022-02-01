@@ -17,5 +17,6 @@ iDaaS project consists of following related repos:
 - idaas-sdk: Language specific client SDK
 
 
-## Component Diagram
+## Components Diagram
 
+![image](https://user-images.githubusercontent.com/1950232/151990663-fc9ac170-7abb-4ffb-89d0-9fe57eb1f4bc.png)
