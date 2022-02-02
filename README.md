@@ -20,18 +20,61 @@ The name "Incremental" is inspired Delta Lake. However, unlike the data lake or 
 ## How It Works
 
 iDaaS can be used in two main scenarios: 
-- As a centralized data platform, similar to a data lake
-- As a real time data integration platform, similar to a modern ELT+L tool.
 
-Typical workflow when used  as a **Data Integration Platform**:
+- Scenario A: As a real time data integration platform, building data pipelines
+- Scenario B:  As a centralized data platform, similar to a data lake but with operational/transactional capability, creating data models and APIs to be consumed by downstream applications
 
-- Configure source connection, enable CDC in source database
-- Configure target connection
-- Create pipelines to replicate data from source to target
-- Add stateless or stateful transformation processors in the pipeline when needed
-- Run the data pipeline
+###  Scenario A. Modern Data Integration Platform
 
-Typical workflow when used  as a **Enterprise Data Platform**:
+Let's assume we have a MySQL database holds the CRM tables and we would like to replicate the customer data to another mysql instance dedicated for analytical purpose. 
+
+#### 1. Use iDaaS Shell or Client DDK(Python or JS)
+#### 2. Configure data sources in DaaS, and given each data source an unique name		
+	> createConnection( {
+				alias: "mysql_crm_db",
+				ip: 'demodb.tapdata.net',
+				port: 3306,
+				user: "demo",
+				password: "xxxxxx",
+				db: "crm" 			
+			});  	
+			`
+	`> createConnection( {
+				alias: "mysql_analytical_db",
+				ip: 'demodb.tapdata.net,
+				port: 3307,
+				user: "demo"
+				password: "xxxxxx"			
+				db: "analyticaldb"				
+			}); 
+	    `	
+
+#### 3. Create a data integration pipeline:
+
+	> create_pipeline({alias: "my_pipeline"})
+		.readFrom( mysql_crm_db.Customer)
+		.writeTo(mysql_analytical_db.CRM_Customer,  {AutoCreate:true} )
+		.start();
+
+iDaaS will perform an initial load of the whole Customer table to mysql_analytical_db, then start CDC replication between two tables. 
+
+#### 4. Check the running status 
+	
+	> my_pipeline.stats()
+
+	Status: running
+	Input Total: 2400
+	Output Total: 2300
+	Throughput:  500 events/second
+	Last Input:   2022.02.01 15:00:03.203
+	Last Output:  2022.02.01 15:00:03.829	
+
+
+
+
+###  Scenario B. Enterprise DaaS Platform
+
+We would like to build a centralized data platform to hold a copy of the master data that are currently scattered in data silos. We would like to use this data platform to serve many of the data requirements requested by different BU or application team.
 
 - Confirm data requirements from business users
 - Plan & Design the data architecture in DaaS Store, including Data Models and Data API 
@@ -40,8 +83,67 @@ Typical workflow when used  as a **Enterprise Data Platform**:
 - Create & Publish APIs backed by the iModel
 - Start consuming data from the API
 
+#### 1. Use iDaaS Shell or Client DDK(Python or JS)
+
+#### 2. Configure data sources & daas db, and given each data source an unique name
+
+	> createConnection( {
+				alias: "mysql_insurance_db",
+				ip: 'demodb.tapdata.net',
+				port: 3306,
+				user: "demo",
+				password: "xxxxxx",
+				db: "insurance" 			
+			});  	
+			`
+	> createConnection( {
+				alias: "daas_db",
+				ip: 'demodb.tapdata.net,
+				port: 27000,
+				user: "demo"
+				password: "xxxxxxx"
+				db: "daas_db"   				
+			}, { DaaSDB:true});    # Note: DaaSDB flag indicates this is db used by the iDaaS
 
 
+#### 3. Create a  data model in DaaS DB, backed by a source table:
+
+	> createModel({  db_alias: "daas_db",name: "OmniCustomer" })
+		.readFrom( mysql_insurance_db.Customer) 
+		.startSync();
+
+iDaaS will perform an initial load of the whole Customer table to MongoDB, then enter into real time sync mode. 
+
+#### 4. Create RESTful API to allow application to query the Customer Data
+
+	> createREST({  	group: "crm_api",
+					name: "OmniCustomer" ,
+					method: "GET",
+					path: "/OmniCustomer",
+					allowedParameters: ["type", "gender", "zipcode"],
+					model: daas_db.OmniCustomer
+				}).publish()
+
+	# curl -H "auth:xxxx" http://daas_server:3030/daas/crm_api/OmniCustomer?gender=M
+	
+#### 5. Check Model's Status
+
+	> daas_db.OmniCustomer.status()
+	
+		iModel :			
+			db: daas_db
+			name: OmniCustomer
+			count: 1000
+			last update: 2022.02.01 12:00:02.039UTC
+			replication delay: 1000ms
+		Sync source: mysql_insurance_db.Customer
+			state: running
+			count: 1002
+			last log entry: 2022.02.01 12:00:01.039UTC
+			replication delay: 1000 ms
+			count diff: -2
+	
+	
 
 ## Use Cases 
 
@@ -79,6 +181,10 @@ Changes in source systems typically take less than one second to be reflected in
 #### Consistency Guarantee(*)
 
 Provide "Read your writes" as well as "Causal Consistency" guarantees under circumstances where stronger consistency is required to ensure user experience. 
+
+#### DaaS Development Kit
+
+Development Kit including easy to use APIs and commands to facilitate rapid data development activities. 
 
 	
 ## More Key Features 
@@ -148,7 +254,7 @@ China Eastern Airlines
 - Connection
 - Table
 
-
+[DaaS Data Architecture](docs/daas-data-architecture.md)
 
 [ Consistency Model](docs/consistency-model.md)
 
@@ -184,10 +290,11 @@ Consistency & Correctness Control
 
 Reverse ETL
 
-### iDaaS Open API References 
+### iDaaS Open API References & DDK
 
 - [Open API References](docs/open-api.md)
-- Python SDK
+- Python DDK
+- Javascript DDK
 
 ### iDaaS Shell Reference
 
