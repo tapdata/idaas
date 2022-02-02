@@ -8,7 +8,7 @@
 
 iDaaS, or Incremental Data as a Service, is an open source data platform that integrates enterprise data silos in real time and provide a complete and unified data layer to serve the operational applications or analytical systems. 
 
-![image](https://user-images.githubusercontent.com/1950232/151978968-68c35570-fa0f-4350-bedf-5154ed2038a8.png)
+![image](https://user-images.githubusercontent.com/1950232/152077313-a006a176-a5a1-4cf4-b739-826a77fe77ab.png)
 
 
 #### Key Difference Compared to Data Lake/Data Warehouse
