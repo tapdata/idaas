@@ -16,7 +16,7 @@ In short, iDaaS is aimed to serve operational/transactional workload while data 
 
 The name "Incremental" is inspired Delta Lake. However, unlike the data lake or data warehouses, which typically loads the data  in batch mode, data in iDaaS is incrementally inserted/updated/deleted on a row by row level, mirroring the changes in source systems as those changes occur.  The freshness of data, and the correctness of the data guaranteed by the industry first **Incremental Engine**, enables users to build mission critical operational applications, including web, mobile and backend applications. 
 
-Read more on [Architecture & Fundamentals](docs/fundamentals) page	
+Read more on [Architecture & Fundamentals](docs/fundamentals.md) page	
 
 ## How It Works
 
@@ -175,7 +175,7 @@ China Eastern Airlines
  
 ## Documentation
 
-### Quick Start
+### Quick Start @TJ
 
 -  [Install iDaaS ](docs/installation.md)
 	- Install using Docker 
@@ -191,23 +191,23 @@ China Eastern Airlines
 
 [iDaaS Overview](docs/fundamentals.md)
 
-Metadata Management
+Metadata Management @TJ
 
 DaaS Data Storage Engine @Berry 
  
-[Observability](docs/observability.md)
+Observability @Aplomb
 
-### Incremental Engine 
+### Incremental Engine  
 
-- Incremental Engine Architecture
+- Incremental Engine Architecture  
 
 - [Open CDC Standard](docs/open-cdc.md)	@Berry
 
 - [Third Party CDC Integration](docs/third-party-cdc.md) @Berry
 
-- Shared Log Mining
+- Shared Log Mining 
 
-- Incremental Computing(Streaming Processing)
+- Incremental Computing(Streaming Processing) @Berry
 	- Stateless
 	- Stateful	
 
@@ -221,7 +221,7 @@ DaaS Data Storage Engine @Berry
 - Javascript DDK
 - Java SDK
 
-### iDaaS Shell Reference
+### iDaaS Shell Reference @TJ
 
 - Overview
 - Explore / Search data
