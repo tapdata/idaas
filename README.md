@@ -197,22 +197,22 @@ DaaS Data Storage Engine @Berry
  
 Observability @Aplomb
 
+iDaaS Consistency Model
 ### Incremental Engine  
 
 - Incremental Engine Architecture  
 
 - [Open CDC Standard](docs/open-cdc.md)	@Berry
 
-- [Third Party CDC Integration](docs/third-party-cdc.md) @Berry
+- [Third Party CDC Integration](docs/third-party-cdc.md) 
 
 - Shared Log Mining 
 
-- Incremental Computing(Streaming Processing) @Berry
+- Incremental Computing(Streaming Processing) @Berry @Alex @Jackin
 	- Stateless
 	- Stateful	
 
-- Incremental Verification @Berry
- 
+- Incremental Verification   
 
 ### iDaaS Admin API References & Client DDK
 
