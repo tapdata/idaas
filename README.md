@@ -16,105 +16,48 @@ In short, iDaaS is aimed to serve operational/transactional workload while data 
 
 The name "Incremental" is inspired Delta Lake. However, unlike the data lake or data warehouses, which typically loads the data  in batch mode, data in iDaaS is incrementally inserted/updated/deleted on a row by row level, mirroring the changes in source systems as those changes occur.  The freshness of data, and the correctness of the data guaranteed by the industry first **Incremental Engine**, enables users to build mission critical operational applications, including web, mobile and backend applications. 
 
+Read more on [Architecture & Fundamentals](docs/fundamentals) page	
 
 ## How It Works
 
 iDaaS can be used in two main scenarios: 
 
-- Scenario A: As a real time data integration platform, building data pipelines
+- Scenario A: As a real time data integration platform, connecting data sources to targets, building pipelines
 - Scenario B:  As a centralized data platform, similar to a data lake but with operational/transactional capability, creating data models and APIs to be consumed by downstream applications
 
 ###  Scenario A. Modern Data Integration Platform
 
-Let's assume we have a MySQL database holds the CRM tables and we would like to replicate the customer data to another mysql instance dedicated for analytical purpose. 
+Create a data pipeline to replicate the Customer table in mysql_crm_db to mysql_analytical_db and name it as "CRM_Customer". Creates the table automatically in target database if not exists. 
 
-#### 1. Use iDaaS Shell or Client DDK(Python or JS)
-#### 2. Configure data sources in DaaS, and given each data source an unique name		
-	> createConnection( {
-				alias: "mysql_crm_db",
-				ip: 'demodb.tapdata.net',
-				port: 3306,
-				user: "demo",
-				password: "xxxxxx",
-				db: "crm" 			
-			});  	
-			`
-	`> createConnection( {
-				alias: "mysql_analytical_db",
-				ip: 'demodb.tapdata.net,
-				port: 3307,
-				user: "demo"
-				password: "xxxxxx"			
-				db: "analyticaldb"				
-			}); 
-	    `	
-
-#### 3. Create a data integration pipeline:
-
-	> create_pipeline({alias: "my_pipeline"})
-		.readFrom( mysql_crm_db.Customer)
-		.writeTo(mysql_analytical_db.CRM_Customer,  {AutoCreate:true} )
-		.start();
-
-iDaaS will perform an initial load of the whole Customer table to mysql_analytical_db, then start CDC replication between two tables. 
-
-#### 4. Check the running status 
+Assuming the database connections were already configured, you only need to write statements like below in  iDaaS DDK/Shell:
 	
-	> my_pipeline.stats()
-
-	Status: running
-	Input Total: 2400
-	Output Total: 2300
-	Throughput:  500 events/second
-	Last Input:   2022.02.01 15:00:03.203
-	Last Output:  2022.02.01 15:00:03.829	
-
-
-
-
+		> createPipeline({alias: "my_pipeline"})
+			.readFrom( mysql_crm_db.Customer)	
+			.writeTo(mysql_analytical_db.CRM_Customer,  {AutoCreate:true} )
+			.start();
+		> my_pipline.status()			
+			Status: running
+			Input Total: 2400
+			Output Total: 2300
+			Throughput:  500 events/second
+			Last Input:   2022.02.01 15:00:03.203
+			Last Output:  2022.02.01 15:00:03.829	
+				
+	
+ 
 ###  Scenario B. Enterprise DaaS Platform
 
 We would like to build a centralized data platform to hold a copy of the master data that are currently scattered in data silos. We would like to use this data platform to serve many of the data requirements requested by different BU or application team.
+ 
+#### 1. Create a  data model in DaaS DB, backed by a source table:
 
-- Confirm data requirements from business users
-- Plan & Design the data architecture in DaaS Store, including Data Models and Data API 
-- Configure source connection, enable CDC in source database
-- Create models in DaaS(iModel), configure model's backing source table, and activate the model
-- Create & Publish APIs backed by the iModel
-- Start consuming data from the API
-
-#### 1. Use iDaaS Shell or Client DDK(Python or JS)
-
-#### 2. Configure data sources & daas db, and given each data source an unique name
-
-	> createConnection( {
-				alias: "mysql_insurance_db",
-				ip: 'demodb.tapdata.net',
-				port: 3306,
-				user: "demo",
-				password: "xxxxxx",
-				db: "insurance" 			
-			});  	
-			`
-	> createConnection( {
-				alias: "daas_db",
-				ip: 'demodb.tapdata.net,
-				port: 27000,
-				user: "demo"
-				password: "xxxxxxx"
-				db: "daas_db"   				
-			}, { DaaSDB:true});    # Note: DaaSDB flag indicates this is db used by the iDaaS
-
-
-#### 3. Create a  data model in DaaS DB, backed by a source table:
-
-	> createModel({  db_alias: "daas_db",name: "OmniCustomer" })
+	> createModel({  db: "daas_db",name: "OmniCustomer" })
 		.readFrom( mysql_insurance_db.Customer) 
 		.startSync();
 
 iDaaS will perform an initial load of the whole Customer table to MongoDB, then enter into real time sync mode. 
 
-#### 4. Create RESTful API to allow application to query the Customer Data
+#### 2. Create RESTful API to allow application to query the Customer Data
 
 	> createREST({  	group: "crm_api",
 					name: "OmniCustomer" ,
@@ -124,9 +67,11 @@ iDaaS will perform an initial load of the whole Customer table to MongoDB, then 
 					model: daas_db.OmniCustomer
 				}).publish()
 
+You can verify the published API using curl:
+
 	# curl -H "auth:xxxx" http://daas_server:3030/daas/crm_api/OmniCustomer?gender=M
 	
-#### 5. Check Model's Status
+#### 3. Check Model's Status
 
 	> daas_db.OmniCustomer.status()
 	
@@ -143,7 +88,8 @@ iDaaS will perform an initial load of the whole Customer table to MongoDB, then 
 			replication delay: 1000 ms
 			count diff: -2
 	
-	
+Interested yet? Follow this document to [Get Started](docs/quick-start.md)
+  
 
 ## Use Cases 
 
@@ -229,22 +175,21 @@ China Eastern Airlines
  
 ## Documentation
 
-### Installation
+### Quick Start
 
--  [Install using Docker ](docs/installation.md)
-- Install from source
-- Install from Tapdata Cloud
+-  [Install iDaaS ](docs/installation.md)
+	- Install using Docker 
+	- Install from source
+	- Install from Tapdata Cloud
 
-### Tutorials & How To
-- Working with iDaaS & iModel
-	- Create a simple iModel
-	- Publish a Data API 
-	- Create a complex iModel backed by more than one source
-- Working with Data Pipelines
-	- [Heterogeneous Data Replication from MySQL to MongoDB](docs/tutorial-mysql-mongodb.md)
+- Setup Connections(Data Sources)
+- Create a Table to Table replication
+- Create a materialized view(wide table)
+- Publish a Data API
 
-### Fundamentals & Concepts
-[Basic Concepts](docs/fundamentals.md)
+###  Concepts & Architecture
+
+[DaaS Concepts](docs/fundamentals.md)
 
 - iModel / IncrementalModel
 - iDatabase / IncrementalDatabase
@@ -254,45 +199,40 @@ China Eastern Airlines
 - Connection
 - Table
 
-[DaaS Data Architecture](docs/daas-data-architecture.md)
-
-[ Consistency Model](docs/consistency-model.md)
-
-### Technical Architecture
-
 [iDaaS Overview](docs/architecture-overview.md)
 
 [iDaaS Components](docs/components.md)
 
-Incremental Engine 
+[DaaS Data Architecture](docs/daas-data-architecture.md)
 
-- Incremental Engine Architecture
-- [Open CDC Standard](docs/open-cdc.md)
-- [Third Party CDC Integration](docs/third-party-cdc.md)
-- Incremental Verification: mechanisms and caveats
-- Shared Log Mining
+[ Consistency Model](docs/consistency-model.md)
 
-Flow Engine
+[Metadata Management](docs/metadata.md)  
 
-- Flow Engine Architecture 
-- Stream Join 
-- Streaming Aggregation 
-- Using IMDG for Caching
-
-Consistency & Correctness Control
-
-- Provide causal consistency 
-- 
-
-[Metadata Management](docs/metadata.md)
-
+DaaS Event & Data Store @Berry 
+ 
 [Observability](docs/observability.md)
 
-Reverse ETL
+### Incremental Engine 
 
-### iDaaS Open API References & DDK
+- Incremental Engine Architecture
 
-- [Open API References](docs/open-api.md)
+- [Open CDC Standard](docs/open-cdc.md)	@Berry
+
+- [Third Party CDC Integration](docs/third-party-cdc.md) @Berry
+
+- Shared Log Mining
+
+- Incremental Computing(Streaming Processing)
+	- Stateless
+	- Stateful	
+
+- Incremental Verification @Berry
+
+
+### iDaaS Admin API References & Client DDK
+
+- [Admin API References](docs/open-api.md)
 - Python DDK
 - Javascript DDK
 
@@ -306,7 +246,7 @@ Reverse ETL
 - Working with Data APIs
 - Working with Data Sources & Targets
  
-###  Plugin Development Kit - Extending iDaaS
+###  Plugin Development Kit - Extending iDaaS  @Aplomb
 
 - iDaaS Pluggable Architecture 
 - PDK Introduction 
@@ -316,6 +256,16 @@ Reverse ETL
 - Tutorial: Create & Test a custom processor
 - Process for submitting plugin for certification review
 - Plugin SPI Reference
+
+
+### Tutorials & How To
+- Working with iDaaS & iModel
+	- Create a simple iModel
+	- Publish a Data API 
+	- Create a complex iModel backed by more than one source
+
+- Working with Data Pipelines
+	- [Heterogeneous Data Replication from MySQL to MongoDB](docs/tutorial-mysql-mongodb.md)
 
 
 

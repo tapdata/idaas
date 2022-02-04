@@ -1,6 +1,21 @@
-# Fundamentals
+# Architecture & Fundamentals
 
 Maintainer: @TJ
+
+## Overview
+
+The iDaaS Data Platform consists following components:
+
+- Incremental Engine: The core component handles data capture, process and output tasks. 
+- Storage Engine: An abstraction layer for DaaS data store, including centralized data store and event store(log)
+- Service Engine: responsible for publish & serve Data API
+- Management: platform admin, including models, metadata, security, observability, etc. 
+- Shell: Interactive shell to interact with iDaaS platform
+- Client SDK: Language SDKs to manage/interact with iDaaS Platform from programming language, currently Python, JS, Java is planned. 
+- PDK: Plugin Development Kit for custom sources, targets & processors
+
+
+## Terms & Concepts
 
 - iModel / IncrementalModel
 - iDatabase / IncrementalDatabase
@@ -9,7 +24,6 @@ Maintainer: @TJ
 - Pipeline
 - Connection
 - Table
-
 
 ## Incremental Model
 
