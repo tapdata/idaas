@@ -9,14 +9,22 @@
 
 
 
->  [!NOTE]
->  Information the user should notice even if skimming.
-
 ## Connectivity & Authentication
 
 How to Connect & Authenticate 
 
 ## Connections
+
+### Functions
+
+	GET    listConnection
+	POST createConnection 
+	PATCH updateConnection
+	DELETE deleteConnection
+
+### Connection Methods
+
+- getConnectionAttribute
 - List connections (by status, owner, type, )
 - Get Connection by ID
 - Create Connection
@@ -26,25 +34,40 @@ How to Connect & Authenticate
 
 ## Jobs
 
-- List jobs (by status, owner, type, )
-- Get Job by ID
-- Create Job
-- Update Job attributes
-- Delete Job
-- Add pipeline to Job
-- Remove pipeline from Job
-- Start | Stop Job
-- Reset Job Status
-- Get job config
-- Apply job config
-- Remove job config
+Functions:
+
+	GET    listJob
+	POST createJob
+	PATCH updateJob
+	DELETE deleteJob
+
+Job Methods:
+	
+	addPipeline
+	removePpeline
+	start
+	stop
+	reset
+	status()
+	getConfig()
+	 
 
 ## Pipelines
 
-- Get Pipeline
-- Create Pipeline
-- Delete Pipeline
+Functions]=
+	GET    listPipeline
+	POST createPipeline
+	PATCH updatePipeline
+	DELETE deletePipeline
 
+Pipeline Methods:
+	
+	start
+	stop
+	reset
+	status()
+	getConfig()
+	  
 ## IncrementalModel
 
 iModel
@@ -67,7 +90,7 @@ Get Table
 
 ## Tags
 List Tags
-Add Tag
+Create Tag
 Remove Tag
 
 
