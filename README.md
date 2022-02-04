@@ -189,27 +189,11 @@ China Eastern Airlines
 
 ###  Concepts & Architecture
 
-[DaaS Concepts](docs/fundamentals.md)
+[iDaaS Overview](docs/fundamentals.md)
 
-- iModel / IncrementalModel
-- iDatabase / IncrementalDatabase
-- Data API / Model backed RESTful/GraphQL or Streaming API
-- Job
-- Pipeline
-- Connection
-- Table
+Metadata Management
 
-[iDaaS Overview](docs/architecture-overview.md)
-
-[iDaaS Components](docs/components.md)
-
-[DaaS Data Architecture](docs/daas-data-architecture.md)
-
-[ Consistency Model](docs/consistency-model.md)
-
-[Metadata Management](docs/metadata.md)  
-
-DaaS Event & Data Store @Berry 
+DaaS Data Storage Engine @Berry 
  
 [Observability](docs/observability.md)
 
@@ -228,13 +212,14 @@ DaaS Event & Data Store @Berry
 	- Stateful	
 
 - Incremental Verification @Berry
-
+ 
 
 ### iDaaS Admin API References & Client DDK
 
-- [Admin API References](docs/open-api.md)
+- [Open API References](docs/open-api.md)
 - Python DDK
 - Javascript DDK
+- Java SDK
 
 ### iDaaS Shell Reference
 
