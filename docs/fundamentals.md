@@ -14,6 +14,8 @@ The iDaaS Data Platform consists following components:
 - Client SDK: Language SDKs to manage/interact with iDaaS Platform from programming language, currently Python, JS, Java is planned. 
 - PDK: Plugin Development Kit for custom sources, targets & processors
 
+![image](https://user-images.githubusercontent.com/1950232/152469064-15d14ee8-5e97-42a2-bda7-417a244903e2.png)
+
 
 ## Terms & Concepts
 
