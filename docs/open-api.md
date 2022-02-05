@@ -73,9 +73,35 @@ ishell command line arguments:
 	 
 ## Shell Commands
 
-#### desc target
+#### desc 
 
-Describe the specified object using a format that is appropriate for command line 
+Describe the specified object/entity
+
+Examples:
+
+	> desc mysql_db
+	alias: mysql_db
+	host: demodb.tapdata.net
+	port: 3306
+	version:	5.8
+	created by: John Doe
+	created at: 2022.01.02 12:00:03
+	
+	> desc mysql_db.Customer
+	db: mysql_db
+	fields:
+		CUSTOMER_ID VARCHAR
+		NAME	VARCHAR
+		PHONE	VARCHAR
+		ADDRESS VARCHAR	
+	indexes: 
+		CUSTOMER_ID PK UNIQUE
+	sample data:
+	| CUSTOMER_ID  | NAME | PHONE    |ADDRESS    |
+	| 123          | TJ   | 555-1234 | 1 Main St |
+	
+	
+		
 
 ## Jobs
 ### Schema
