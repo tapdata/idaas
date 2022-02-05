@@ -19,7 +19,7 @@ Note the database used are for demo only. Demo databases will be reset on a dail
 	> createDatabase( {
 				alias: "mysql_demo",				// required
 				database_type: "mysql", 			// required
-				database_version: "",				// optional
+				database_version: "5.8",			// optional
 				host: 'demodb.tapdata.net',
 				port: 3306,
 				user: "demo",
@@ -37,6 +37,19 @@ Note the database used are for demo only. Demo databases will be reset on a dail
 				db: "insurance"				
 			});        
 	OK 
+	
+	> desc mysql_demo
+		
+		alias: mysql_demo
+		type: MySQL
+		version: 5.8
+		host: "demodb.tapdata.net",
+		port: 3306,
+		database_name:  insurance
+		
+		tables count: 12
+		
+		
 	
 ## 3.	 Create a Table to Table Replication Pipeline
 	
@@ -72,14 +85,38 @@ We would like to create a new Policy table that  combines the columns from Polic
 |----|---|------| ---- |----|
 |  9999   | 2022-01-02 | 123 |  TJ | 555-1234|
 
-Here's how we would do it:
+Below is the script to achieve this goal:
 
 	// ADM_DB is the database alias we want to create the model in 
-	> pm = createIModel("PolicyModel", "ADM_DB");   
+	> pm = createModel("PolicyModel", "ADM_DB");   
 	> pm.readFrom(mysq_demo.Policy)
 	> pm.readFrom(
 			mysql_demo.Customer		// source table
 			.project({ADDRESS:0})   		// Exclude ADDRESS column
 			.rename("NAME","POLICY_HOLDER_NAME")
 		)
-	> pm.
+	> pm.startSync()
+	> pm.stats()
+	
+	
+## 5. Publish a RESTful API for PolicyModel
+
+	> api = createAPI({
+		model: ADM_DB.PolicyModel,
+		name: "policy model api",	// unique name
+		group: "",
+		version: "v1", 
+		path:"PolicyModel",
+		method: "GET",
+		required_parameters: [ ],
+		allowed_parameters: [ ]		
+	})
+	> api.publish()
+	
+## 6. Database to Database Replication 
+
+	> p = createPipeline("db_clone")
+			.readFrom(mysq_demo.getTables() )	
+			.renameTable("FDM_$tableName")
+			.writeTo(mongodb_demo, {auto_create: true} )
+			.start();

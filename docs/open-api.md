@@ -3,7 +3,7 @@
 ## Index
 - Overview
 - Connection & Auth
-
+- Shell utility commands
 
 <!--Jobs & Pipelines-->  
 - [Jobs](#Jobs)
@@ -71,6 +71,11 @@ ishell command line arguments:
 	> init(server, token)
 	>  p = Pipeline()
 	 
+## Shell Commands
+
+#### desc target
+
+Describe the specified object using a format that is appropriate for command line 
 
 ## Jobs
 ### Schema
@@ -148,8 +153,8 @@ Parameters:
 
 	database_spec: JSON,  see schema definition for attributes
 	options:  JSON format, specifying zero or more options 
-		validate: true (default), whether to connect to database server & perform validation
-		
+		validate: true | false, default to true, whether to connect to database server & perform validation
+		discover: true | false, default to true, whether to discover table schema
 	
 Return:
 	OK | ERROR_CODE
@@ -216,6 +221,11 @@ Return:
 Return:
 	String,  YES |  NO
 
+#### discover()
+
+Discover all table schemas
+
+
 
 ## Tables
 A table is a metadata entity in iDaaS, it represents a table from a data source. Typically this is created by the PDK or iDaaS applications, rather than added by user.  Hence the create/update/delete API should not be published. 
@@ -247,7 +257,11 @@ iModel is a special type of Table. Under the hood it is a regular table in DaaS 
 
 ### Object Level Methods
 
-Refer to [Table and Model API](table-model-api.md) for in-depth details
+	startSync()			// start or resume sync
+	stopSync()			// stop sync
+	resetSyncState()		// Reset sync state
+	truncate()			// remove data  from iModel
+
 
 ## RestAPI
 ### Schema
