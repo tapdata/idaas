@@ -1,8 +1,12 @@
 # Tapdata Incremental DaaS 
 
+## DISCLAIMER
+
+This document is in pre-alpha stage. Any part of the documentation may be changed without advanced notice. 
+
 ## What is iDaaS
 
-iDaaS, or Incremental Data as a Service, is an open source data platform that integrates enterprise data silos in real time and provide a complete and unified data layer to serve the operational applications or analytical systems. 
+iDaaS, or Incremental Data as a Service, is an open source data platform that integrates and replicates enterprise data silos in real time,  provides a complete and unified data layer  to serve the operational applications or analytical systems. 
 
 ![image](https://user-images.githubusercontent.com/1950232/152077313-a006a176-a5a1-4cf4-b739-826a77fe77ab.png)
 
@@ -124,15 +128,18 @@ Changes in source systems typically take less than one second to be reflected in
 
 Provide "Read your writes" as well as "Causal Consistency" guarantees under circumstances where stronger consistency is required to ensure user experience. 
 
-#### Plugin Development Kit
-
-iDaaS is designed with a pluggable architecture. With Plugin Development Kit, one may quickly build custom source, targets & processors to extend the functionality. 
 	
 ## More Features 
 
 #### Comprehensive Data Source Support
 
 Support most common databases and messaging systems including but not limited to Oracle, MySQL, SQLServer, PostgreSQL,  MongoDB, DB2, Sybase, Kafka, MQ etc. 
+
+See [full list of supported data sources & targets](docs/supported-databases.md)
+
+#### Plugin Development Kit
+
+iDaaS is designed with a pluggable architecture. With Plugin Development Kit, one may quickly build custom source, targets & processors to extend the functionality. 
 
 #### Pluggable Architecture allows easy extension
 
@@ -179,11 +186,11 @@ China Eastern Airlines
 	- Install using Docker 
 	- Install from source
 	- Install from Tapdata Cloud
-
-- Setup Connections(Data Sources)
-- Create a Table to Table replication
-- Create a materialized view(wide table)
-- Publish a Data API
+- [Quick Start](docs/quick-start.md)
+	- Setup Connections(Data Sources)
+	- Create a Table to Table replication
+	- Create a materialized view(wide table)
+	- Publish a Data API
 
 ###  Concepts & Architecture
 
@@ -216,6 +223,7 @@ iDaaS Consistency Model
 
 - [Admin API References](docs/open-api.md)
 - [Pipeline API](docs/pipeline-api.md)
+- [Table and Model API](docs/table-model-api.md)
 - Python SDK(Tapdata implement) 
 - Java/Go/Scala(Community implement)
 

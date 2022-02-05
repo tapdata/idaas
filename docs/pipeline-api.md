@@ -47,21 +47,39 @@ For example, assuming we have a MySQL database "mysql_insurance", which contains
 
 ##  Stateless Processors
 
-### map
+### 
 
-### filter
+rename(current_field_name, new_field_name)
+renameAll(regex)
 
-### flatMap
 
-### merge
+### Inspired by Mongo's Aggregation Framework
+[https://docs.mongodb.com/manual/meta/aggregation-quick-reference/](https://docs.mongodb.com/manual/meta/aggregation-quick-reference/)
 
-### mapUsingService
+- match
+- project
+- lookup (lookup from any arbitary managed table)
+- redact
+- limit (useful for testing)
+- addFields
+- replaceWith
+- sample
+- skip
+- unwind
 
-### mapUsingServiceAsync
-	
-### mapWithPython
+### Inherited from Jet Framework
 
-### mapWithJS
+* map
+* filter
+* flatMap
+* merge
+* mapUsingService
+* mapUsingServiceAsync
+
+#### UDF 
+#### mapWithPython
+#### mapWithJS
+
 
 ## Stateful Processors
 

@@ -20,10 +20,18 @@ You may choose one of the following methods to setup iDaaS
 	git clone https://github.com/tapdata/idaas.git
 	cd idaas
 	mvn clean package
-	./bin/tapdata start
-	./bin/tap 	# enter into iDaaS shell
+	# add ./bin to the execution path
+	idaas start
 	
 
 ## Install with Tapdata Cloud
 
 	git clone https://github.com/tapdata/idaas.git
+	
+	
+## Verify Installation
+
+	# idaas -u admin@example.com -p
+	> list databases
+	No databases found. Please setup at least two databases. 
+	

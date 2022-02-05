@@ -77,13 +77,15 @@ ishell command line arguments:
 ### CRUD APIs 
 ### Object Level Methods
 	
-	addPipeline(pipeline_id)
-	removePpeline(pipeline_id)
 	start()
 	stop()
 	reset()
-	status()
-	config( config_spec)
+	stats()
+	getConfig()
+	setConfig(config_spec)
+	addPipeline(pipeline_id)
+	removePpeline(pipeline_id)
+	listPipelines()
 	 
 ## Pipelines
 ### Schema
@@ -97,7 +99,25 @@ ishell command line arguments:
 	
 ### Object Level Methods
 
-See detail on this page: [Pipeline API](pipeline-api.md)
+#### start()
+This is a sugarcoating method. It is equivalent of following:
+
+* 	find the Job that this pipeline belongs to.
+* 	If such job not already exists, create one, naming it as $pipeline_name + "_job"
+* 	call the start() method on that job.  
+
+#### stop()
+Sugarcoating method, will call enclosing job's stop method. 
+
+#### reset()
+Sugarcoating method, will call enclosing job's reset method. 
+
+#### stats()
+Sugarcoating method, will call enclosing job's stats method. 
+	
+#### Additional Stage & Processor APIs
+
+For pipeline stages, processors APIs, please see comprehensive details on this page: [Pipeline API](pipeline-api.md)
 
 ## Database Groups
 ### Schema
@@ -121,12 +141,15 @@ See detail on this page: [Pipeline API](pipeline-api.md)
 
 ### CRUD Compatible APIs
 	
-#### createDatabase( database_spec )
+#### createDatabase( database_spec, options )
 Creates a database entry in iDaaS for management. Note this **does not** actually create a physical database in database server. 
 
 Parameters:
 
-	database_spec: JSON, provide the properties
+	database_spec: JSON,  see schema definition for attributes
+	options:  JSON format, specifying zero or more options 
+		validate: true (default), whether to connect to database server & perform validation
+		
 	
 Return:
 	OK | ERROR_CODE
@@ -181,7 +204,17 @@ Return:
 
 ### Object Level Methods 
 
-None
+#### getFeatures()
+
+list supported features
+
+Return:
+	Array of strings
+
+#### checkFeatureSupport(feature_name)
+
+Return:
+	String,  YES |  NO
 
 
 ## Tables
@@ -197,7 +230,8 @@ A table is a metadata entity in iDaaS, it represents a table from a data source.
 	listTables
 
 ### Object Level Methods
-	
+
+Refer to [Table and Model API](table-model-api.md) for in-depth details	
 
 ## IncrementalModel
 iModel is a special type of Table. Under the hood it is a regular table in DaaS data store. The key difference is an iModel is always backed by one or more other tables/imodels. 
@@ -213,6 +247,7 @@ iModel is a special type of Table. Under the hood it is a regular table in DaaS 
 
 ### Object Level Methods
 
+Refer to [Table and Model API](table-model-api.md) for in-depth details
 
 ## RestAPI
 ### Schema
@@ -224,10 +259,13 @@ iModel is a special type of Table. Under the hood it is a regular table in DaaS 
 	deleteAPI
 	getAPI
 	listAPIs
-
+	
 ### Object Level Methods
 
-
+	publish()
+	unpublish()
+	stats()	// list API invokation stats
+	
 
 ## Tags
 ### ---Schema---
@@ -255,3 +293,14 @@ None
 ## System Settings
 
 ## Scheduled Tasks
+
+## Reference Data
+
+
+#### listDatabaseTypes(filter)
+list all supported(or partially supported database types)
+
+Parameters:
+
+	filter: JSON
+		metatype: database | file | httpapi | messaging 
