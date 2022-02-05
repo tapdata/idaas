@@ -128,6 +128,13 @@ Changes in source systems typically take less than one second to be reflected in
 
 Provide "Read your writes" as well as "Causal Consistency" guarantees under circumstances where stronger consistency is required to ensure user experience. 
 
+####  State-of-the-Art Fluent Pipeline API 
+
+Full suite of Pipeline APIs allows following benefits:
+
+- Easy to develop
+- Code versioning
+- Quickly build/rebuild entire data platform
 	
 ## More Features 
 
@@ -137,13 +144,10 @@ Support most common databases and messaging systems including but not limited to
 
 See [full list of supported data sources & targets](docs/supported-databases.md)
 
-#### Plugin Development Kit
-
-iDaaS is designed with a pluggable architecture. With Plugin Development Kit, one may quickly build custom source, targets & processors to extend the functionality. 
 
 #### Pluggable Architecture allows easy extension
 
-iDaaS is designed with extension in mind. All major components, including Source, Processor and Target, are designed with extensibility in mind. One can easily follow the tutorial or documentation to create custom source, target or processors. 
+iDaaS is designed with extension in mind. All major components, including Source, Processor and Target, are designed with extensibility in mind. One can easily follow the tutorial or documentation to create custom source, target or processors with the help of Plugin Develeopment Kit
 
 #### Third Party CDC Integration
 
