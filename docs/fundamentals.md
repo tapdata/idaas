@@ -56,27 +56,31 @@ FDM/MDM/ADM are only logical layering, physically they're still supported by dat
 
 ## Terms & Concepts
 
-- iModel / IncrementalModel
-- iDatabase / IncrementalDatabase
+- Connections / Databases
+- Tables
+- iModels (Replicated, Joined, Aggregated data models)
 - Data API / Model backed RESTful/GraphQL or Streaming API
 - Job
 - Pipeline
 - Connection
-- Table
+
+#### Connections/Databases
+
+Database contains a collection of tables and requires connection information to access. For each database we require a connection to be setup.   In future we may support multiple databases per connection. Until then we use Connection/Database interchangably. 
+
+Note database is a broader term. In case data sources are SaaS or Files, database can refer to the SaaS application name and Directory/Folders. 
+
+#### Tables
+
+Table holds rows of data.  Table also has broader meaning: in a non-database data source, Table could be an Object(such as Customer or Opportunity in a CRM SaaS), or CSV file, or a specific RESTful API. 
 
 #### Incremental Model
 
-In DaaS architecture, data in centralized store are typically replicated from sources. Hence  we call a data model(or table) in DaaS data store "Incremental Model" or iModel as they're incrementally updated by the change events occurred in the source systems. 
+In DaaS architecture, data in centralized store are typically replicated from sources. Hence  we call a table in DaaS data store "Incremental Model" or iModel as they're incrementally updated by the change events occurred in the source systems. 
 
-iModels are first class citizens and the majority of the functionalities and activities are around iModels. 
-
+iModels a subset of "Tables" 
 
 ![image](https://user-images.githubusercontent.com/1950232/151934068-2527c288-69b2-494b-b58c-ebea631d6326.png)
-
-
-#### DaaS DB
-
-This is a conventaional database, however with a desgination of "DaaS DB". This is to diffentiate it from the source dbs. 
 
 #### Event Store
 
@@ -98,4 +102,13 @@ Change events from all managed sources, are captured by iEngine and cached/store
 #### Table
 
 
+## Security & Permission
+
+iDaaS as a data platform, is intended to be used by following personas:
+
+- Data Architect/Admin: Responsible for setting up the data platform, data architecture, users & permissions
+
+- Data Engineers:  Dedicated engineer who is responsible managing the data sources, models, metadatas, APIs, and provide service to internal BU users. 
+
+- App developers/BI Analysts: These are the appplication developers or BI engineers who would require data to meet their use cases. They may use iDaaS to fulfill their own specific needs, usually managing a few data pipelines or data models. 
 

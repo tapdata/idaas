@@ -8,6 +8,8 @@ You may choose one of the following methods to setup iDaaS
 - [Install locally from source](#Install locally from source)
 - [Works with Tapdata iDaaS Cloud](#Works with Tapdata iDaaS Cloud)
 
+## Requirements
+
 ## Install using Docker
 
 	docker pull xxx

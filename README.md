@@ -1,9 +1,5 @@
 # Tapdata Incremental DaaS 
 
-## Change Log
-
-
-
 ## What is iDaaS
 
 iDaaS, or Incremental Data as a Service, is an open source data platform that integrates enterprise data silos in real time and provide a complete and unified data layer to serve the operational applications or analytical systems. 
@@ -91,9 +87,9 @@ You can verify the published API using curl:
 Interested yet? Follow this document to [Get Started](docs/quick-start.md)
   
 
-## Use Cases 
+## When to Use 
 
-When and Where iDaaS can be used?
+When iDaaS can be used?
 
 - Real time heterogenous database replication
 - Build a real time Data as a Service platform
@@ -128,12 +124,11 @@ Changes in source systems typically take less than one second to be reflected in
 
 Provide "Read your writes" as well as "Causal Consistency" guarantees under circumstances where stronger consistency is required to ensure user experience. 
 
-#### DaaS Development Kit
+#### Plugin Development Kit
 
-Development Kit including easy to use APIs and commands to facilitate rapid data development activities. 
-
+iDaaS is designed with a pluggable architecture. With Plugin Development Kit, one may quickly build custom source, targets & processors to extend the functionality. 
 	
-## More Key Features 
+## More Features 
 
 #### Comprehensive Data Source Support
 
@@ -172,6 +167,9 @@ ChangAn Auto
 China Eastern Airlines
 
 
+## Version History & Roadmap
+ 
+ Roadmap
  
 ## Documentation
 
@@ -216,10 +214,10 @@ iDaaS Consistency Model
 
 ### iDaaS Admin API References & Client DDK
 
-- [Open API References](docs/open-api.md)
-- Python DDK
-- Javascript DDK
-- Java SDK
+- [Admin API References](docs/open-api.md)
+- [Pipeline API](docs/pipeline-api.md)
+- Python SDK(Tapdata implement) 
+- Java/Go/Scala(Community implement)
 
 ### iDaaS Shell Reference @TJ
 
@@ -253,6 +251,10 @@ iDaaS Consistency Model
 	- [Heterogeneous Data Replication from MySQL to MongoDB](docs/tutorial-mysql-mongodb.md)
 
 
+## Contribute
+How to get involved
+
+Todo Projects List
 
 ## References
 
