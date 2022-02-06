@@ -200,46 +200,34 @@ China Eastern Airlines
 
 [iDaaS Overview](docs/fundamentals.md)
 
-Metadata Management @TJ
-
 DaaS Data Storage Engine @Berry 
  
 Observability @Aplomb
 
 iDaaS Consistency Model
+
 ### Incremental Engine  
 
 - Incremental Engine Architecture  
 
 - [Open CDC Standard](docs/open-cdc.md)	@Berry
 
-- [Third Party CDC Integration](docs/third-party-cdc.md) 
-
 - Shared Log Mining 
-
-- Incremental Computing(Streaming Processing) @Berry @Alex @Jackin
-	- Stateless
-	- Stateful	
 
 - Incremental Verification   
 
-### iDaaS Admin API References & Client DDK
+### Working with iDaaS
 
-- [Admin API References](docs/open-api.md)
+- [iDaaS API References](docs/open-api.md)
+
 - [Pipeline API](docs/pipeline-api.md)
-- [Table and Model API](docs/table-model-api.md)
-- Python SDK(Tapdata implement) 
-- Java/Go/Scala(Community implement)
 
-### iDaaS Shell Reference @TJ
+- [Working with Metadata](docs/metadata.md)
 
-- Overview
-- Explore / Search data
-- Working with iModels
-- Working with Pipelines
-- Working with Metadata
-- Working with Data APIs
-- Working with Data Sources & Targets
+- iDaaS Shell
+
+- Python SDK
+
  
 ###  Plugin Development Kit - Extending iDaaS  @Aplomb
 
