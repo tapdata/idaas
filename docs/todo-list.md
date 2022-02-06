@@ -4,47 +4,53 @@
 Maintainer: @TJ
 
 
-## Priority 1: 
+## Priority 1: Design Phase
 
-- Repository Planning
+- Plugin Development Kit  
 
-- Plugin Development Kit 
+- Design Open CDC Standard (DML/DDL)  
 
-- iDaaS Open API (Admin API v2)
+- iDaaS Open API (Admin API v2) Design   
 
-- iDaaS Shell (Python or JS)
+- Metadata Management Design	 
+
+- iDaaS Shell (Python or JS) Design 
 
 - Incremental Verification Design
 
-- Documentation Help
+- Third Party CDC Integration Architecture Design
+
+- Causal Consistency Design
+
+- Other Documentation
 
 	- Supported Databases
 
 	- PDK Documentation
 
-	- Tutorials 
-
 	- Installation & Setup
 
 ## Priority 2 
 
-- Metadata Management Design
+- Repository Planning & Refactoring
 
-- Design Open CDC Standard (DML/DDL)
+- iDaaS Open API (Admin API v2) Implementation
 
-- Design Third Party CDC Integration Architecture
+- iDaaS Shell (Python or JS) Implementation
 
 - Unified Data Access API Design & Implementation, Phase 1: R of CRUD
 
-- DaaS Data Storage Engine Design
-
-- Causal Consistency 
+- DaaS Data Storage Engine Design & Implementation
 
 - Observability 
+
+- Documentation:
+
+	- Tutorials 
 
 ## Priority 3
 
 - Documentation
 
-- Unified Data Access API Phase 1: CUD of CRUD
+- Unified Data Access API Phase 2: CUD of CRUD
 
