@@ -6,7 +6,9 @@ This document is in pre-alpha stage. Any part of the documentation may be change
 
 ## What is iDaaS
 
-iDaaS, or Incremental Data as a Service, is an open source data platform that integrates and replicates enterprise data silos in real time,  provides a complete and unified data layer  to serve the operational applications or analytical systems. 
+Data as a service (DaaS) is a data management strategy that uses the cloud(or centralized data platform) to deliver data storage, integration, processing, and servicing capabilities in an on demand fashion. 
+
+Tapdata iDaaS, or Incremental Data as a Service,  is an industry first open source implementation of the DaaS architecture.   iDaaS can automatically connect all enterprise data sources and replicate data to centralized data store to provide an overall complete, accurate and real time enterprise data layer  to serve the  operational and analytical applications. 
 
 ![image](https://user-images.githubusercontent.com/1950232/152077313-a006a176-a5a1-4cf4-b739-826a77fe77ab.png)
 
@@ -14,82 +16,63 @@ iDaaS, or Incremental Data as a Service, is an open source data platform that in
 #### Key Difference Compared to Data Lake/Data Warehouse
 In short, iDaaS is aimed to serve operational/transactional workload while data lake/data warehouses are exclusivelly designed to serve analytical workload. 
 
-The name "Incremental" is inspired Delta Lake. However, unlike the data lake or data warehouses, which typically loads the data  in batch mode, data in iDaaS is incrementally inserted/updated/deleted on a row by row level, mirroring the changes in source systems as those changes occur.  The freshness of data, and the correctness of the data guaranteed by the industry first **Incremental Engine**, enables users to build mission critical operational applications, including web, mobile and backend applications. 
+The name "Incremental" is inspired Delta Lake. However, unlike the data lake or data warehouses, which typically loads the data  in batch mode, data in iDaaS is incrementally inserted/updated/deleted on a row by row level, mirroring the changes in source systems as those changes occur.  The freshness of data, and the correctness of the data guaranteed by the  **Incremental Engine**, enables users to build mission critical operational applications, including web, mobile and backend applications. 
 
 Read more on [Architecture & Fundamentals](docs/fundamentals.md) page	
 
 ## How It Works
 
-iDaaS can be used in two main scenarios: 
+The main use case for iDaaS is to quickly make the data asset available to downstream applications. 
 
-- Scenario A: As a real time data integration platform, connecting data sources to targets, building pipelines
-- Scenario B:  As a centralized data platform, similar to a data lake but with operational/transactional capability, creating data models and APIs to be consumed by downstream applications
+There are three main activities could happen in iDaaS:
 
-###  Scenario A. Modern Data Integration Platform
+#### Step 1: Catalog all your databases, tables, views, APIs that you may need
 
-Create a data pipeline to replicate the Customer table in mysql_crm_db to mysql_analytical_db and name it as "CRM_Customer". Creates the table automatically in target database if not exists. 
+		> createConnection( {
+				alias: "mysql_demo",
+				host: 'demodb.tapdata.net',
+				port: 3306,
+				user: "demo",
+				password: "demo123",
+				db: "insurance"
+			});
+		> createConnection( {
+				alias: "mdm_db",
+				host: 'demodb.tapdata.net,
+				port: 27000,
+				user: "demo",
+				password: "demo123",			
+				db: "mdm_db"				
+			}); 
+		
+#### Step 2:  Build data pipelines with fluent API,  from data sources to targets, to data store, or to cloud 
 
-Assuming the database connections were already configured, you only need to write statements like below in  iDaaS DDK/Shell:
-	
-		> createPipeline({alias: "my_pipeline"})
-			.readFrom( mysql_crm_db.Customer)	
-			.writeTo(mysql_analytical_db.CRM_Customer,  {AutoCreate:true} )
-			.start();
-		> my_pipline.status()			
-			Status: running
-			Input Total: 2400
-			Output Total: 2300
-			Throughput:  500 events/second
-			Last Input:   2022.02.01 15:00:03.203
-			Last Output:  2022.02.01 15:00:03.829	
-				
-	
- 
-###  Scenario B. Enterprise DaaS Platform
-
-We would like to build a centralized data platform to hold a copy of the master data that are currently scattered in data silos. We would like to use this data platform to serve many of the data requirements requested by different BU or application team.
- 
-#### 1. Create a  data model in DaaS DB, backed by a source table:
-
-	> createModel({  db: "daas_db",name: "OmniCustomer" })
-		.readFrom( mysql_insurance_db.Customer) 
-		.startSync();
-
-iDaaS will perform an initial load of the whole Customer table to MongoDB, then enter into real time sync mode. 
-
-#### 2. Create RESTful API to allow application to query the Customer Data
+	> createPipeline("my_pipeline")
+		.readFrom( mysql_demo.CUSTOMER )
+		.writeTo(mdm_db.OmniCustomer)
+		.start()
+		
+	> my_pipline.status()           
+        Status: running
+        Input Total: 2400
+        Output Total: 2300
+        Throughput:  500 events/second
+        Last Input:   2022.02.01 15:00:03.203
+        Last Output:  2022.02.01 15:00:03.829  
+	        
+####  Step 3. Serve fresh data to your applications, via auto Data API or reverse sync. 
 
 	> createREST({  	group: "crm_api",
 					name: "OmniCustomer" ,
 					method: "GET",
 					path: "/OmniCustomer",
 					allowedParameters: ["type", "gender", "zipcode"],
-					model: daas_db.OmniCustomer
+					model: mdm_db.OmniCustomer
 				}).publish()
 
-You can verify the published API using curl:
+Step 3 is optional, you can use iDaaS purely for a data integration and data development purpose. 
 
-	# curl -H "auth:xxxx" http://daas_server:3030/daas/crm_api/OmniCustomer?gender=M
-	
-#### 3. Check Model's Status
 
-	> daas_db.OmniCustomer.status()
-	
-		iModel :			
-			db: daas_db
-			name: OmniCustomer
-			count: 1000
-			last update: 2022.02.01 12:00:02.039UTC
-			replication delay: 1000ms
-		Sync source: mysql_insurance_db.Customer
-			state: running
-			count: 1002
-			last log entry: 2022.02.01 12:00:01.039UTC
-			replication delay: 1000 ms
-			count diff: -2
-	
-Interested yet? Follow this document to [Get Started](docs/quick-start.md)
-  
 
 ## When to Use 
 

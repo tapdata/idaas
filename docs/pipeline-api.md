@@ -47,6 +47,10 @@ For example, assuming we have a MySQL database "mysql_insurance", which contains
 
 ##  Stateless Processors
 
+### 
+
+rename(current_field_name, new_field_name)
+renameAll(regex)
 
 
 ### Inspired by Mongo's Aggregation Framework
@@ -54,8 +58,9 @@ For example, assuming we have a MySQL database "mysql_insurance", which contains
 
 - match
 - project
-- lookup (lookup from any arbitary managed table)
-- redact
+- tableLookup
+- dictionaryLookup
+- cacheLookup
 - limit (useful for testing)
 - addFields
 - replaceWith
@@ -79,18 +84,12 @@ mapWithPython
 mapWithJS
 
 
-### DDL Related
+### DB Clone
 
-	rename(current_field_name, new_field_name)
-	renameAll(replace_expression)
-	renameTable(replace_expression)
-	
-### Type Transformation
+renameTable(replace_expression)
 
-By default Incremental Engine will attempt to automatically perform the type mapping when source and target are of different database types.  In the event the automatic type mapping does not work as expected, you may use the mapType to provide custom mapping logic. 
 
-	mapType()
-	
+
 ## Stateful Processors
 
 ### join
