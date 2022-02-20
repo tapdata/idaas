@@ -10,6 +10,10 @@ Maintainer: @TJ
 
 - Design Open CDC Standard (DML/DDL)  
 
+- Heterogeneous Type Mapping
+
+- DAG Model Calculation
+
 - iDaaS Open API (Admin API v2) Design   
 
 - Metadata Management Design	 

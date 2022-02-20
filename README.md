@@ -235,7 +235,7 @@ iDaaS Consistency Model
 
 
 ## Contribute
-How to get involved
+[How to get involved](docs/get-involved.md)
 
 [Todo Projects List](docs/todo-list.md)
 
