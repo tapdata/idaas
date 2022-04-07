@@ -1,8 +1,8 @@
 # Tapdata iDaaS 
 
-## DISCLAIMER
+## IMPORTANT NOTE
 
-This document is in alpha stage. Changes will be made without advanced notice. 
+Tapdata iDaaS open source will be officially released in the near future. Please stay tuned. For inquiries, please direct to tj@tapdata.io. 
 
 ## What is iDaaS
 
@@ -159,7 +159,7 @@ Full suite of Pipeline APIs allows following benefits:
 
 Support most common databases and messaging systems including but not limited to Oracle, MySQL, SQLServer, PostgreSQL,  MongoDB, DB2, Sybase, Kafka, MQ etc. 
 
-See [full list of supported data sources & targets](supported-databases.md)
+See full list of supported data sources & targets
 
 
 #### Pluggable Architecture allows easy extension
@@ -182,76 +182,4 @@ All functionalities can be accessed via Open API for easy integration.
 
 Scalable architecture, docker compatible, can be easily deployed on-prem or on any of the major cloud providers.  
 
-
-## Roadmap
  
- Roadmap
- 
-## Documentation
-
-### Quick Start @TJ
-
--  [Install iDaaS ](installation.md)
-	- Install using Docker 
-	- Install from source
-	- Install from Tapdata Cloud
-	
-- [Quick Start](quick-start.md)
-	- Setup Connections(Data Sources)
-	- Create a Table to Table replication
-	- Create a materialized view(wide table)
-	- Publish a Data API
-
-###  Concepts & Architecture
-
-- [iDaaS Overview](fundamentals.md)
-
-- Incremental Engine: Architecture  
-
-- [Open CDC Standard](open-cdc.md)	
-
-- Incremental Verification   
-
-### Working with iDaaS
-
-- [iDaaS API References](open-api.md)
-
-- [Pipeline API](pipeline-api.md)
-
-- [Working with Metadata](metadata.md)
-
-- iDaaS Shell
-
-- Python SDK
- 
-###  Plugin Development Kit - Extending iDaaS
-
-- iDaaS Pluggable Architecture 
-- PDK Introduction 
-- Tutorial: Create & Test a custom database  source 
-- Tutorial: Create & Test a custom data target
-- Tutorial: Create & Test a custom SaaS source
-- Tutorial: Create & Test a custom processor
-- Plugin API Reference
-
-### Tutorials & How To
-
-- Working with iDaaS & iModel
-	- Create a simple iModel
-	- Publish a Data API 
-	- Create a complex iModel backed by more than one source
-
-- Working with Data Pipelines
-	- [Heterogeneous Data Replication from MySQL to MongoDB](tutorial-mysql-mongodb.md)
-
-
-## Contribute
-
-How to get involved
-
-## References
-
-[Open Metadata] (https://docs.open-metadata.org/openmetadata/schemas/overview)
-
-[Open Lineage]
-
